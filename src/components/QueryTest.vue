@@ -13,6 +13,7 @@
                     v-model="modelUrl"
                     hint="enter full url"
                     :rules="[ rules.required, rules.link ]"
+                    @keydown.enter.prevent="checkUrl"
                 ></v-text-field>
             </v-col>
         </v-row>
