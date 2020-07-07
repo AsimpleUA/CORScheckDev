@@ -1,4 +1,4 @@
-# testapp
+# Simple APP to test your URL for CORS problems
 
 ## Project setup
 ```
