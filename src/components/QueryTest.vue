@@ -2,36 +2,36 @@
     <v-form v-model="valid" ref="form">
         <v-row class="mt-12 pt-12 px-4" justify="center">
             <v-col
-                cols="12"
-                xs="12"
-                sm="11"
-                md="9"
-                lg="7"
-            >
-                <v-text-field
-                    label="URL"
-                    v-model="modelUrl"
-                    hint="enter full url"
-                    :rules="[ rules.required, rules.link ]"
-                    @keydown.enter.prevent="checkUrl"
-                ></v-text-field>
-            </v-col>
-        </v-row>
-        <v-row class="my-4 px-4" justify="center">
-            <v-col
-                cols="11"
-                xs="11"
-                sm="9"
-                md="7"
-                lg="5"
+                cols="4"
+                xs="4"
+                sm="3"
+                md="2"
+                lg="1"
             >
                 <v-select
                     label="Method"
                     v-model="modelMethod"
+                    outlined
                     hint="choose request methods"
                     :rules="[ rules.required ]"
                     :items="methods"
                 ></v-select>
+            </v-col>
+            <v-col
+                cols="8"
+                xs="8"
+                sm="8"
+                md="7"
+                lg="6"
+            >
+                <v-text-field
+                    label="URL"
+                    v-model="modelUrl"
+                    outlined
+                    hint="enter full url"
+                    :rules="[ rules.required, rules.link ]"
+                    @keydown.enter.prevent="checkUrl"
+                ></v-text-field>
             </v-col>
         </v-row>
         <v-row class="my-4 px-4" justify="center">
