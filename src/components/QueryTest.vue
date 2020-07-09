@@ -18,6 +18,23 @@
             </v-col>
         </v-row>
         <v-row class="my-4 px-4" justify="center">
+            <v-col
+                cols="11"
+                xs="11"
+                sm="9"
+                md="7"
+                lg="5"
+            >
+                <v-select
+                    label="Method"
+                    v-model="modelMethod"
+                    hint="choose request methods"
+                    :rules="[ rules.required ]"
+                    :items="methods"
+                ></v-select>
+            </v-col>
+        </v-row>
+        <v-row class="my-4 px-4" justify="center">
             <v-btn tile dark @click="checkUrl">Check URL CORS</v-btn>
         </v-row>
         <v-row class="mt-4 px-4" justify="center">
@@ -29,12 +46,14 @@
 <script>
 import { mapState, mapActions, mapMutations } from "vuex";
 import validation from "@/stats/validation.js";
+import methods from "@/stats/methods.js";
 
 export default {
     data: () => ({
         valid: true,
         rules: validation,
         message: '',
+        methods: methods,
         color: "success"
     }),
     computed: {
@@ -43,17 +62,36 @@ export default {
                 return this.url;
             },
             set(val){
-                this.setUrl(val);
+                this.setUrl({
+                    url: val,
+                    method: this.method
+                });
+            }
+        },
+        modelMethod: {
+            get() {
+                return this.method;
+            },
+            set(val){
+                this.setUrl({
+                    url: this.url,
+                    method: val
+                });
             }
         },
         ...mapState({
-            url: 'url'
+            url: 'url',
+            method: 'method'
         })
     },
     methods: {
         checkUrl() {
             if(this.$refs.form.validate()) {
-                this.test(this.url).then(m => {
+                const form = {
+                    method: this.method,
+                    url: this.url
+                };
+                this.test(form).then(m => {
                     this.message = m.message;
                     this.color = m.success ? 'success' : 'error';
                 });

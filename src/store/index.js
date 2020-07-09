@@ -7,22 +7,24 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     list: [],
-    url: ''
+    url: '',
+    method: 'get'
   },
   mutations: {
-    setUrl(state, url) {
-      state.url = url;
+    setUrl(state, data) {
+      state.url = data.url;
+      state.method = data.method;
     },
     addUrl(state, url) {
       state.list.unshift(url);
     }
   },
   actions: {
-    async test({ commit }, link) {
+    async test({ commit }, data) {
       let message = '';
       let success = true;
 
-      await axios.get(link).then(() => {
+      await axios[data.method](data.url).then(() => {
         message = 'Everything works';
       }).catch(err => {
         message = err.message;
@@ -46,7 +48,7 @@ export default new Vuex.Store({
         }
       });
 
-      commit('addUrl', link);
+      commit('addUrl', data);
 
       return { message, success };
     }
